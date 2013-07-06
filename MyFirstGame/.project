@@ -3,6 +3,8 @@
 	<name>MyFirstGame</name>
 	<comment></comment>
 	<projects>
+		<project>AndEngine</project>
+		<project>AndEnginePhysicsBox2DExtension</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
