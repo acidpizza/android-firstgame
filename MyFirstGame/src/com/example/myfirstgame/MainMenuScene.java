@@ -45,8 +45,7 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 	
 	private void createBackground()
 	{
-	    //attachChild(new Sprite(400, 240, resourcesManager.menu_background_region, vbom)
-	    attachChild(new Sprite(0, 0, resourcesManager.menu_background_region, vbom)
+	    attachChild(new Sprite(400, 240, resourcesManager.menu_background_region, vbom)
 	    {
 	        @Override
 	        protected void preDraw(GLState pGLState, Camera pCamera) 
@@ -72,9 +71,8 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 	    menuChildScene.buildAnimations();
 	    menuChildScene.setBackgroundEnabled(false);
 	    
-	    playMenuItem.setPosition(playMenuItem.getX(), playMenuItem.getY() + 40);
-	    //optionsMenuItem.setPosition(optionsMenuItem.getX(), optionsMenuItem.getY() - 110);
-	    optionsMenuItem.setPosition(optionsMenuItem.getX(), optionsMenuItem.getY() + 80);
+	    playMenuItem.setPosition(playMenuItem.getX(), playMenuItem.getY() - 40);
+	    optionsMenuItem.setPosition(optionsMenuItem.getX(), optionsMenuItem.getY() - 80);
 	    
 	    menuChildScene.setOnMenuItemClickListener(this);
 	    
@@ -87,6 +85,7 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
         switch(pMenuItem.getID())
         {
         case MENU_PLAY:
+        	SceneManager.getInstance().loadGameScene(engine);
             return true;
         case MENU_OPTIONS:
             return true;
