@@ -11,6 +11,7 @@ import org.andengine.entity.modifier.ScaleModifier;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;
+import org.andengine.entity.scene.menu.MenuScene;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
@@ -132,7 +133,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener
 	
 	private void createPhysics()
 	{
-	    physicsWorld = new FixedStepPhysicsWorld(60, new Vector2(0, -17), false); 
+	    physicsWorld = new FixedStepPhysicsWorld(60, new Vector2(0, -30), false); 
 	    physicsWorld.setContactListener(contactListener());
 	    registerUpdateHandler(physicsWorld);
 	}
@@ -249,6 +250,18 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener
 	                        	}
 	                            this.setVisible(false);
 	                            this.setIgnoreUpdate(true);
+	                            player.disablePlayer();
+	                            player.setVisible(false);
+	                            
+	                    	    engine.registerUpdateHandler(new TimerHandler(3f, new ITimerCallback()
+	                            {                                    
+	                                public void onTimePassed(final TimerHandler pTimerHandler)
+	                                {
+	                                    pTimerHandler.reset();
+	                                    engine.unregisterUpdateHandler(pTimerHandler);
+	                            	    SceneManager.getInstance().loadMenuScene(engine);	
+	                                }
+	                            }));
 	                        }
 	                    }
 	                };
@@ -297,6 +310,16 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener
 	    gameOverText.setPosition(camera.getCenterX(), camera.getCenterY());
 	    attachChild(gameOverText);
 	    gameOverDisplayed = true;
+	    
+	    engine.registerUpdateHandler(new TimerHandler(1f, new ITimerCallback()
+        {                                    
+            public void onTimePassed(final TimerHandler pTimerHandler)
+            {
+                pTimerHandler.reset();
+                engine.unregisterUpdateHandler(pTimerHandler);
+        	    SceneManager.getInstance().loadMenuScene(engine);	
+            }
+        }));
 	}
 	
 	private ContactListener contactListener()
@@ -331,8 +354,17 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener
 	            
 	            if (x1.getBody().getUserData().equals("platform3") && x2.getBody().getUserData().equals("player"))
 	            {
-	                x1.getBody().setType(BodyType.DynamicBody);
+	                engine.registerUpdateHandler(new TimerHandler(0.2f, new ITimerCallback()
+	                {                                    
+	                    public void onTimePassed(final TimerHandler pTimerHandler)
+	                    {
+	                        pTimerHandler.reset();
+	                        engine.unregisterUpdateHandler(pTimerHandler);
+	                        x1.getBody().setType(BodyType.DynamicBody);
+	                    }
+	                }));
 	            }
+	            
 	        }
 
 	        public void endContact(Contact contact)

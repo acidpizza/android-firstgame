@@ -78,5 +78,6 @@ public class LevelCompleteWindow extends Sprite
 		 // Attach our level complete panel in the middle of camera
 		 setPosition(camera.getCenterX(), camera.getCenterY());
 		 scene.attachChild(this);
+		 
 	 }
 }

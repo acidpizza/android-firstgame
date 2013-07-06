@@ -55,7 +55,7 @@ public abstract class Player extends AnimatedSprite
                 
                 if (canRun)
                 {    
-                    body.setLinearVelocity(new Vector2(5, body.getLinearVelocity().y)); 
+                    body.setLinearVelocity(new Vector2(6, body.getLinearVelocity().y)); 
                 }
             }
         });
@@ -76,7 +76,7 @@ public abstract class Player extends AnimatedSprite
         {
             return; 
         }
-        body.setLinearVelocity(new Vector2(body.getLinearVelocity().x, 12)); 
+        body.setLinearVelocity(new Vector2(body.getLinearVelocity().x, 16)); 
     }
     
     public void increaseFootContacts()
@@ -87,5 +87,10 @@ public abstract class Player extends AnimatedSprite
     public void decreaseFootContacts()
     {
         footContacts--;
+    }
+    
+    public void disablePlayer()
+    {
+    	body.setType(BodyType.StaticBody);
     }
 }
